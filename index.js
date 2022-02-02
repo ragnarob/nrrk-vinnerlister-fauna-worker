@@ -1,6 +1,7 @@
 import { Router, listen } from 'worktop';
-import faunadb, { Lambda } from 'faunadb';
-import setupDogRoutes from './dogs.js';
+import faunadb from 'faunadb';
+import setupDogRoutes from './modules/dogs.js';
+import setupContestRoutes from './modules/contests.js';
 
 const router = new Router();
 
@@ -9,6 +10,7 @@ const faunaClient = new faunadb.Client({
   domain: 'db.eu.fauna.com',
 });
 
-setupDogRoutes(router, faunaClient)
+setupDogRoutes(router, faunaClient);
+setupContestRoutes(router, faunaClient);
 
 listen(router.run);
