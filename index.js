@@ -1,7 +1,9 @@
 import { Router, listen } from 'worktop';
 import faunadb from 'faunadb';
-import setupDogRoutes from './modules/dogs.js';
-import setupContestRoutes from './modules/contests.js';
+import setupDogRoutes from './modules/dogs/dogs';
+import setupContestRoutes from './modules/contests/contests';
+import setupContestResultRoutes from './modules/contest-results/contestResult';
+import setupIndexRoutes from './modules/index-by-year/index-by-year';
 
 const router = new Router();
 
@@ -12,5 +14,7 @@ const faunaClient = new faunadb.Client({
 
 setupDogRoutes(router, faunaClient);
 setupContestRoutes(router, faunaClient);
+setupContestResultRoutes(router, faunaClient);
+setupIndexRoutes(router, faunaClient);
 
 listen(router.run);

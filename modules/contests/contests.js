@@ -1,13 +1,13 @@
-import { setupBasicRoutes } from './utils';
+import { setupBasicRoutes } from '../utils';
 
 export default function setupRoutes(router, faunaClient) {
   setupBasicRoutes({
     router,
     faunaClient,
-    routes: ['POST', 'PATCH', 'DELETE'],
-    routeName: 'contest-results',
-    collectionName: 'ContestResults',
-    indexName: 'all-contest-results',
+    routes: ['GETALL', 'POST', 'PATCH', 'DELETE'],
+    routeName: 'contests',
+    collectionName: 'Contests',
+    indexName: 'all-contests',
     postFields: [
       'name',
       'date',
@@ -17,4 +17,6 @@ export default function setupRoutes(router, faunaClient) {
       'judge',
     ],
   });
+
+  // TODO: set up GET /:id
 }
