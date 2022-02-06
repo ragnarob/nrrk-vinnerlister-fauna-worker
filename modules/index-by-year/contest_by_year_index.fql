@@ -1,0 +1,20 @@
+CreateIndex({
+  name: "contest_by_year",
+  source: {
+    collection: Collection("Contests"),
+    fields: {
+      contestYear: Query(
+        Lambda("contestDoc",
+          SubString(Select(["data", "date"], Var("contestDoc")), 0, 4)
+        )
+      )
+    }
+  },
+  terms: [
+    { binding: "contestYear" }
+  ],
+  values: [
+    { field: ["data", "date"], reverse: true},
+    { field: ["ref"] },
+  ]
+})
