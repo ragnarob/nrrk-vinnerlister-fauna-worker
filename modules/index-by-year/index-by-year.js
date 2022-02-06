@@ -1,4 +1,4 @@
-import { getPointsByResult } from '../scores-and-points';
+import { getPointsByNumDogs, getPointsByResult } from '../scores-and-points';
 import { getFaunaError } from '../utils';
 import getContestsByYear from './contestsByYear';
 import getResultsByYear from './resultsByYear';
@@ -14,6 +14,7 @@ export default function setupRoutes(router, faunaClient) {
       const [contests, results] = await Promise.all([contestsPromise, resultsPromise]);
 
       const topDogScores = getTopDogScores(results);
+
       const fullContestData = {
         contests,
         topList: topDogScores,
@@ -41,7 +42,7 @@ function getTopDogScores(resultList) {
 
     dogsObj[dogId].numberOfContests += 1;
 
-    const score = getPointsByResult(resultObj.result);
+    const score = getPointsByResult(resultObj.result) + getPointsByNumDogs(resultObj.numberOfDogs);
     const { points } = dogsObj[dogId];
 
     points.push(score);

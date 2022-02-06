@@ -7,5 +7,6 @@ CreateIndex({
   values: [
     { field: 'ref' },
     { field: ['data', 'dogRef'] },
+    { field: ['data', 'contestRef'] },
   ]
 })

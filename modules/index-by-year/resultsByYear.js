@@ -18,16 +18,18 @@ export default async function getResultsByYear(faunaClient, year) {
         ),
       ),
       Lambda(
-        ['resultRef', 'dogRef'],
+        ['resultRef', 'dogRef', 'contestRef'],
         Let(
           {
             resultDoc: Get(Var('resultRef')),
             dogDoc: Get(Var('dogRef')),
+            contestDoc: Get(Var('contestRef')),
           },
           {
             result: Select(['data', 'result'], Var('resultDoc')),
             dogName: Select(['data', 'name'], Var('dogDoc')),
             dogId: Select(['ref', 'id'], Var('dogDoc')),
+            numberOfDogs: Select(['data', 'numberOfDogs'], Var('contestDoc')),
           },
         ),
       ),

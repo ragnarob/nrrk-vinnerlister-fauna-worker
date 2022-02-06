@@ -12,7 +12,7 @@ export default async function getContestResults(faunaClient, contestId) {
         ),
       ),
       Lambda(
-        ['resultRef', 'dogRef'],
+        ['resultRef', 'dogRef', 'contestRef'],
         Let(
           {
             resultDoc: Get(Var('resultRef')),
