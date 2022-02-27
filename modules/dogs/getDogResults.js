@@ -2,7 +2,7 @@ import {
   Collection, Select, Get, Index, Let, Lambda, Map, Match, Paginate, Ref, Var,
 } from 'faunadb';
 
-export default async function getDogResults(faunaClient, dogId) {
+export async function getDogResults(faunaClient, dogId) {
   const result = await faunaClient.query(
     Map(
       Paginate(
@@ -32,6 +32,19 @@ export default async function getDogResults(faunaClient, dogId) {
             contestJudge: Select(['data', 'judge'], Var('contestDoc')),
           },
         ),
+      ),
+    ),
+  );
+
+  return result.data;
+}
+
+export async function getDogResultRefs(faunaClient, dogId) {
+  const result = await faunaClient.query(
+    Paginate(
+      Match(
+        Index('results_by_dog_simple'),
+        Ref(Collection('Dogs'), dogId),
       ),
     ),
   );

@@ -3,7 +3,7 @@ import {
 } from 'faunadb';
 import { getFaunaError } from '../utils';
 
-export default async function getContestResults(faunaClient, contestId) {
+export async function getContestResults(faunaClient, contestId) {
   try {
     const result = await faunaClient.query(
       Map(
@@ -41,4 +41,17 @@ export default async function getContestResults(faunaClient, contestId) {
     }
     throw err;
   }
+}
+
+export async function getContestResultRefs(faunaClient, contestId) {
+  const result = await faunaClient.query(
+    Paginate(
+      Match(
+        Index('results_by_contest_simple'),
+        Ref(Collection('Contests'), contestId),
+      ),
+    ),
+  );
+
+  return result.data;
 }

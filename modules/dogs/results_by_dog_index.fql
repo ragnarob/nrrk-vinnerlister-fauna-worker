@@ -9,3 +9,11 @@ CreateIndex({
     { field: ['data', 'contestRef'] },
   ]
 })
+
+CreateIndex({
+  name: "results_by_dog_simple",
+  source: Collection("ContestResults"),
+  terms: [
+    { field: ["data", "dogRef"] },
+  ]
+})

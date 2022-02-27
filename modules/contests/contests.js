@@ -1,11 +1,12 @@
+import { Collection, Delete, Ref } from 'faunadb';
 import { getFaunaError, getValueById, setupBasicRoutes } from '../utils';
-import getContestResults from './getContestResults';
+import { getContestResults, getContestResultRefs } from './getContestResults';
 
 export default function setupRoutes(router, faunaClient) {
   setupBasicRoutes({
     router,
     faunaClient,
-    routes: ['GETALL', 'POST', 'PATCH', 'DELETE'],
+    routes: ['GETALL', 'POST', 'PATCH'],
     routeName: 'contests',
     collectionName: 'Contests',
     indexName: 'all-contests',
@@ -34,6 +35,32 @@ export default function setupRoutes(router, faunaClient) {
       };
 
       res.send(200, fullContestData);
+    } catch (err) {
+      const faunaError = getFaunaError(err);
+      res.send(faunaError.status, faunaError);
+    }
+  });
+
+  router.add('DELETE', '/contests/:id', async (req, res) => {
+    try {
+      const contestId = req.params.id;
+
+      const contestResults = await getContestResultRefs(faunaClient, contestId);
+
+      // eslint-disable-next-line no-restricted-syntax
+      for await (const contRes of contestResults) {
+        const refId = contRes.value.id;
+
+        await faunaClient.query(
+          Delete(Ref(Collection('ContestResults'), refId)),
+        );
+      }
+
+      await faunaClient.query(
+        Delete(Ref(Collection('Contests'), contestId)),
+      );
+
+      res.send(200);
     } catch (err) {
       const faunaError = getFaunaError(err);
       res.send(faunaError.status, faunaError);
