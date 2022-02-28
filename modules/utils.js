@@ -1,7 +1,7 @@
 import faunadb, { Lambda } from 'faunadb';
 
 const {
-  Create, Collection, Map, Match, Index, Get, Ref, Paginate, Delete, Var,
+  Create, Collection, Map, Match, Index, Get, Ref, Paginate, Delete, Var, Replace,
 } = faunadb.query;
 
 export function setupBasicRoutes({
@@ -42,6 +42,32 @@ export function setupBasicRoutes({
 
         const newItemId = await createDocument(faunaClient, collectionName, newItem);
         res.send(200, { id: newItemId });
+      } catch (err) {
+        const faunaError = getFaunaError(err);
+        res.send(faunaError.status, faunaError);
+      }
+    });
+  }
+
+  if (routes.includes('PUT')) {
+    router.add('PUT', `/${routeName}/:id`, async (req, res) => {
+      try {
+        const itemId = req.params.id;
+        const body = await req.body();
+        const updatedItem = {};
+
+        for (const key of postFields) {
+          updatedItem[key] = body[key] || null;
+        }
+
+        await faunaClient.query(
+          Replace(
+            Ref(Collection(collectionName), `${itemId}`),
+            { data: updatedItem },
+          ),
+        );
+
+        res.send(200);
       } catch (err) {
         const faunaError = getFaunaError(err);
         res.send(faunaError.status, faunaError);

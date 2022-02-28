@@ -6,7 +6,7 @@ export default function setupRoutes(router, faunaClient) {
   setupBasicRoutes({
     router,
     faunaClient,
-    routes: ['GETALL', 'POST', 'PATCH'],
+    routes: ['GETALL', 'POST', 'PUT'],
     routeName: 'dogs',
     collectionName: 'Dogs',
     indexName: 'all-dogs',
@@ -15,7 +15,6 @@ export default function setupRoutes(router, faunaClient) {
       'titles',
       'nkkId',
       'gender',
-      'color',
       'pedigreeDbLink',
       'fatherTitles',
       'fatherName',
