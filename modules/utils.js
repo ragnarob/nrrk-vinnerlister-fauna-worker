@@ -57,7 +57,7 @@ export function setupBasicRoutes({
         const updatedItem = {};
 
         for (const key of postFields) {
-          updatedItem[key] = body[key] || null;
+          updatedItem[key] = body[key];
         }
 
         await faunaClient.query(
