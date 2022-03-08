@@ -1,6 +1,5 @@
 import { Collection, Delete, Ref } from 'faunadb';
 import { getFaunaError, getValueById, setupBasicRoutes } from '../utils';
-import { addContestResults } from './contestResults';
 import { getContestResults, getContestResultRefs } from './getContestResults';
 
 export default function setupRoutes(router, faunaClient) {
@@ -20,8 +19,6 @@ export default function setupRoutes(router, faunaClient) {
       'judge',
     ],
   });
-
-  router.add('POST', '/contests/:id/results', (req, res) => addContestResults(req, res, faunaClient));
 
   router.add('GET', '/contests/:id', async (req, res) => {
     try {
