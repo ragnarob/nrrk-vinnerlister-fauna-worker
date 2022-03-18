@@ -1,5 +1,6 @@
 import { Collection, Delete, Ref } from 'faunadb';
 import { getFaunaError, getValueById, setupBasicRoutes } from '../utils';
+import addContestCert from './addContestCert';
 import { getContestResults, getContestResultRefs } from './getContestResults';
 
 export default function setupRoutes(router, faunaClient) {
@@ -16,9 +17,11 @@ export default function setupRoutes(router, faunaClient) {
       'numberOfDogs',
       'location',
       'host',
-      'judge',
+      'judge', 
     ],
   });
+
+  router.add('PATCH', '/contests/:id', (req, res) => addContestCert(req, res, faunaClient))
 
   router.add('GET', '/contests/:id', async (req, res) => {
     try {
