@@ -29,33 +29,45 @@ export default function setupRoutes(router, faunaClient) {
 }
 
 function getTopDogScores(resultList) {
-  const dogsObj = {};
+  const maleDogs = {};
+  const femaleDogs = {};
 
   resultList.forEach((resultObj) => {
     const { dogId } = resultObj;
+    const relevantDogObj = resultObj.dogGender === 'M' ? maleDogs : femaleDogs;
 
-    if (!(dogId in dogsObj)) {
-      dogsObj[dogId] = {
-        dogId, dogName: resultObj.dogName, numberOfContests: 0, points: [],
+    if (!(dogId in relevantDogObj)) {
+      relevantDogObj[dogId] = {
+        dogId,
+        dogName: resultObj.dogName,
+        numberOfContests: 0,
+        points: [],
       };
     }
 
-    dogsObj[dogId].numberOfContests += 1;
+    relevantDogObj[dogId].numberOfContests += 1;
 
     const score = getPointsByResult(resultObj.result) + getPointsByNumDogs(resultObj.numberOfDogs);
-    const { points } = dogsObj[dogId];
+    const { points } = relevantDogObj[dogId];
 
     points.push(score);
-    dogsObj[dogId].points = points.sort().slice(0, 5);
+    relevantDogObj[dogId].points = points.sort().slice(0, 5);
   });
 
-  const resultsSorted = Object.values(dogsObj).map((dogObj) => ({
+  const maleDogsSorted = Object.values(maleDogs).map((dogObj) => ({
     pointsSum: sumArray(dogObj.points),
     ...dogObj,
-  }))
-    .sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1));
+  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1));
 
-  return resultsSorted;
+  const femaleDogsSorted = Object.values(femaleDogs).map((dogObj) => ({
+    pointsSum: sumArray(dogObj.points),
+    ...dogObj,
+  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1));
+
+  return {
+    male: maleDogsSorted,
+    female: femaleDogsSorted,
+  };
 }
 
 function sumArray(numArray) {
