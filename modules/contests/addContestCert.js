@@ -12,7 +12,6 @@ export default async function addContestCert(req, res, faunaClient) {
     const updateObj = {
       [genderCertKey]: certValue
     }
-    console.log(dogGender, isCert, dogId, updateObj)
 
     await faunaClient.query(
       Update(
