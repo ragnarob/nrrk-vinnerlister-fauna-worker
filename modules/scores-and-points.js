@@ -9,7 +9,7 @@ export const pointsByResult = {
   '7. BHK/BTK': 6,
   '8. BHK/BTK': 4,
   '9. BHK/BTK': 2,
-  '10. BHK/BTK': 0,
+  '10. BHK/BTK': 1,
   CK: 5,
   Excellent: 4,
   'Very Good': 3,
