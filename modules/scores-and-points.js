@@ -21,7 +21,24 @@ export function getPointsByResult(result) {
   return pointsByResult[result] || 0;
 }
 
-export function getPointsByNumDogs(numDogs) {
+export const awardsWithNumDogPoitns = [
+  'BIR',
+  'BIM',
+  '2. BHK/BTK',
+  '3. BHK/BTK',
+  '4. BHK/BTK',
+  '5. BHK/BTK',
+  '6. BHK/BTK',
+  '7. BHK/BTK',
+  '8. BHK/BTK',
+  '9. BHK/BTK',
+  '10. BHK/BTK',
+];
+
+export function getPointsByNumDogs(numDogs, result) {
+  if (result && !awardsWithNumDogPoitns.includes(result)) {
+    return 0;
+  }
   if (numDogs <= 5) { return 0; }
   if (numDogs <= 10) { return 2; }
   if (numDogs <= 15) { return 4; }

@@ -47,7 +47,8 @@ function getTopDogScores(resultList) {
 
     relevantDogObj[dogId].numberOfContests += 1;
 
-    const score = getPointsByResult(resultObj.result) + getPointsByNumDogs(resultObj.numberOfDogs);
+    const score = getPointsByResult(resultObj.result)
+      + getPointsByNumDogs(resultObj.numberOfDogs, resultObj.result);
     const { points } = relevantDogObj[dogId];
 
     points.push(score);
