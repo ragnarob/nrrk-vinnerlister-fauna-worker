@@ -58,12 +58,14 @@ function getTopDogScores(resultList) {
   const maleDogsSorted = Object.values(maleDogs).map((dogObj) => ({
     pointsSum: sumArray(dogObj.points),
     ...dogObj,
-  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1));
+  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1))
+    .slice(0, 20);
 
   const femaleDogsSorted = Object.values(femaleDogs).map((dogObj) => ({
     pointsSum: sumArray(dogObj.points),
     ...dogObj,
-  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1));
+  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1))
+    .slice(0, 20);
 
   return {
     male: maleDogsSorted,
