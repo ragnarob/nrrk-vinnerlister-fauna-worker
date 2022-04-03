@@ -20,7 +20,6 @@ export default function setupRoutes(router, faunaClient) {
 
       const updatedFields = {
         result: result.result,
-        critiqueLink: result.critiqueLink || '',
       };
 
       await faunaClient.query(
@@ -46,7 +45,6 @@ export default function setupRoutes(router, faunaClient) {
           dogRef: Ref(Collection('Dogs'), result.dogId),
           contestRef: Ref(Collection('Contests'), contestId),
           result: result.result,
-          critiqueLink: result.critiqueLink || '',
         };
 
         addPromises.push(createDocument(faunaClient, 'ContestResults', contestResult));

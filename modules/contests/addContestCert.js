@@ -1,5 +1,5 @@
-import { Collection, Ref, Update } from "faunadb";
-import { getFaunaError } from "../utils";
+import { Collection, Ref, Update } from 'faunadb';
+import { getFaunaError } from '../utils';
 
 export default async function addContestCert(req, res, faunaClient) {
   try {
@@ -10,8 +10,8 @@ export default async function addContestCert(req, res, faunaClient) {
     const genderCertKey = dogGender === 'M' ? 'maleCertDogRef' : 'femaleCertDogRef';
     const certValue = isCert ? Ref(Collection('Dogs'), dogId) : null;
     const updateObj = {
-      [genderCertKey]: certValue
-    }
+      [genderCertKey]: certValue,
+    };
 
     await faunaClient.query(
       Update(
@@ -22,7 +22,6 @@ export default async function addContestCert(req, res, faunaClient) {
 
     res.send(204);
   } catch (err) {
-    console.log(err)
     const faunaError = getFaunaError(err);
     res.send(faunaError.status, faunaError);
   }
