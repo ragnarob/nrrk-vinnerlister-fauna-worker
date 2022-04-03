@@ -16,10 +16,12 @@ export default function setupRoutes(router, faunaClient) {
   router.add('PATCH', '/contest-results/:id', async (req, res) => {
     try {
       const resultId = req.params.id;
-      const result = await req.body();
+      const newResult = await req.body();
 
       const updatedFields = {
-        result: result.result,
+        result: newResult.result || '',
+        placement: newResult.placement || '',
+        ck: newResult.ck || '',
       };
 
       await faunaClient.query(
@@ -44,7 +46,9 @@ export default function setupRoutes(router, faunaClient) {
         const contestResult = {
           dogRef: Ref(Collection('Dogs'), result.dogId),
           contestRef: Ref(Collection('Contests'), contestId),
-          result: result.result,
+          result: result.result || '',
+          placement: result.placement || '',
+          ck: result.ck || '',
         };
 
         addPromises.push(createDocument(faunaClient, 'ContestResults', contestResult));

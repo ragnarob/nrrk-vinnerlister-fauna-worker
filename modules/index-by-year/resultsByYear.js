@@ -29,6 +29,8 @@ export default async function getResultsByYear(faunaClient, year) {
             },
             {
               result: Select(['data', 'result'], Var('resultDoc')),
+              placement: Select(['data', 'placement'], Var('resultDoc')),
+              ck: Select(['data', 'ck'], Var('resultDoc')),
               dogName: Select(['data', 'name'], Var('dogDoc')),
               dogGender: Select(['data', 'gender'], Var('dogDoc')),
               dogId: Select(['ref', 'id'], Var('dogDoc')),

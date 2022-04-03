@@ -21,6 +21,8 @@ export async function getDogResults(faunaClient, dogId) {
           {
             resultId: Select(['ref', 'id'], Var('resultDoc')),
             result: Select(['data', 'result'], Var('resultDoc')),
+            placement: Select(['data', 'placement'], Var('resultDoc')),
+            ck: Select(['data', 'ck'], Var('resultDoc')),
 
             contestId: Select(['ref', 'id'], Var('contestDoc')),
             contestName: Select(['data', 'name'], Var('contestDoc')),

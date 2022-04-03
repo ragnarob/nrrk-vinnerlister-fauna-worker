@@ -17,11 +17,11 @@ export default function setupRoutes(router, faunaClient) {
       'numberOfDogs',
       'location',
       'host',
-      'judge', 
+      'judge',
     ],
   });
 
-  router.add('PATCH', '/contests/:id', (req, res) => addContestCert(req, res, faunaClient))
+  router.add('PATCH', '/contests/:id', (req, res) => addContestCert(req, res, faunaClient));
 
   router.add('GET', '/contests/:id', async (req, res) => {
     try {

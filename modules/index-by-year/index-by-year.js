@@ -1,4 +1,4 @@
-import { getPointsByNumDogs, getPointsByResult } from '../scores-and-points';
+import { calculateScore } from '../scores-and-points';
 import { getFaunaError } from '../utils';
 import getContestsByYear from './contestsByYear';
 import getResultsByYear from './resultsByYear';
@@ -47,8 +47,12 @@ function getTopDogScores(resultList) {
 
     relevantDogObj[dogId].numberOfContests += 1;
 
-    const score = getPointsByResult(resultObj.result)
-      + getPointsByNumDogs(resultObj.numberOfDogs, resultObj.result);
+    const score = calculateScore(
+      resultObj.result,
+      resultObj.placement,
+      resultObj.ck,
+      resultObj.numberOfDogs,
+    );
     const { points } = relevantDogObj[dogId];
 
     points.push(score);
