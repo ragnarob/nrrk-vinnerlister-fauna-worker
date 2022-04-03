@@ -1,4 +1,5 @@
 import { Collection, Delete, Ref } from 'faunadb';
+import { verifyAdminLoggedIn } from '../auth/auth';
 import { getFaunaError, getValueById, setupBasicRoutes } from '../utils';
 import { getDogResultRefs, getDogResults } from './getDogResults';
 
@@ -46,7 +47,7 @@ export default function setupRoutes(router, faunaClient) {
     }
   });
 
-  router.add('DELETE', '/dogs/:id', async (req, res) => {
+  router.add('DELETE', '/dogs/:id', verifyAdminLoggedIn, async (req, res) => {
     try {
       const dogId = req.params.id;
 

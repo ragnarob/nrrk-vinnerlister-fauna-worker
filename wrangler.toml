@@ -12,3 +12,7 @@ command = "npm run build"
 
 [build.upload]
 format = "service-worker"
+
+kv_namespaces = [ 
+  { binding = "DOG_KV", id = "8e9ce64cec994e4e8ffca41143dbc23c" }
+]

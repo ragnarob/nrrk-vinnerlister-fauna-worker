@@ -1,4 +1,5 @@
 import faunadb, { Lambda } from 'faunadb';
+import { verifyAdminLoggedIn } from './auth/auth';
 
 const {
   Create, Collection, Map, Match, Index, Get, Ref, Paginate, Delete, Var, Replace,
@@ -33,7 +34,7 @@ export function setupBasicRoutes({
   }
 
   if (routes.includes('POST')) {
-    router.add('POST', `/${routeName}`, async (req, res) => {
+    router.add('POST', `/${routeName}`, verifyAdminLoggedIn, async (req, res) => {
       try {
         const body = await req.body();
         const newItem = {};
@@ -50,7 +51,7 @@ export function setupBasicRoutes({
   }
 
   if (routes.includes('PUT')) {
-    router.add('PUT', `/${routeName}/:id`, async (req, res) => {
+    router.add('PUT', `/${routeName}/:id`, verifyAdminLoggedIn, async (req, res) => {
       try {
         const itemId = req.params.id;
         const body = await req.body();
@@ -76,7 +77,7 @@ export function setupBasicRoutes({
   }
 
   if (routes.includes('DELETE')) {
-    router.add('DELETE', `/${routeName}/:id`, async (req, res) => {
+    router.add('DELETE', `/${routeName}/:id`, verifyAdminLoggedIn, async (req, res) => {
       try {
         const itemId = req.params.id;
         await faunaClient.query(
