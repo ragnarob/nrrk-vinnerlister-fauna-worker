@@ -10,6 +10,7 @@ export default async function getContestsByYear(faunaClient, year) {
           Index('contest_by_year'),
           year,
         ),
+        { size: 1000 },
       ),
       Lambda(['_', 'contestRef'], Get(Var('contestRef'))),
     ),

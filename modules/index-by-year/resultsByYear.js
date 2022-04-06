@@ -18,6 +18,7 @@ export default async function getResultsByYear(faunaClient, year) {
               Match(Index('results_by_contest'), Var('contestRef')), // results_by_contest from 'contests' folder
             ),
           ),
+          { size: 100000 },
         ),
         Lambda(
           ['resultRef', 'dogRef', 'contestRef'],

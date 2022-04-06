@@ -96,6 +96,7 @@ export async function getAllValues(faunaClient, indexName) {
     Map(
       Paginate(
         Match(Index(indexName)),
+        { size: 10000 },
       ),
       Lambda('X', Get(Var('X'))),
     ),

@@ -10,6 +10,7 @@ export async function getDogResults(faunaClient, dogId) {
           Index('results_by_dog'),
           Ref(Collection('Dogs'), dogId),
         ),
+        { size: 1000 },
       ),
       Lambda(
         ['resultRef', 'contestRef'],
@@ -47,6 +48,7 @@ export async function getDogResultRefs(faunaClient, dogId) {
         Index('results_by_dog_simple'),
         Ref(Collection('Dogs'), dogId),
       ),
+      { size: 1000 },
     ),
   );
 
