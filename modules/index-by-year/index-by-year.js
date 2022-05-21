@@ -32,7 +32,7 @@ function getTopDogScores(resultList) {
   const maleDogs = {};
   const femaleDogs = {};
 
-  resultList.forEach((resultObj) => {
+  resultList.forEach(resultObj => {
     const { dogId } = resultObj;
     const relevantDogObj = resultObj.dogGender === 'M' ? maleDogs : femaleDogs;
 
@@ -51,24 +51,28 @@ function getTopDogScores(resultList) {
       resultObj.result,
       resultObj.placement,
       resultObj.ck,
-      resultObj.numberOfDogs,
+      resultObj.numberOfDogs
     );
     const { points } = relevantDogObj[dogId];
 
     points.push(score);
-    relevantDogObj[dogId].points = points.sort().slice(0, 5);
+    relevantDogObj[dogId].points = points.sort().slice(0, 6);
   });
 
-  const maleDogsSorted = Object.values(maleDogs).map((dogObj) => ({
-    pointsSum: sumArray(dogObj.points),
-    ...dogObj,
-  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1))
+  const maleDogsSorted = Object.values(maleDogs)
+    .map(dogObj => ({
+      pointsSum: sumArray(dogObj.points),
+      ...dogObj,
+    }))
+    .sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1))
     .slice(0, 20);
 
-  const femaleDogsSorted = Object.values(femaleDogs).map((dogObj) => ({
-    pointsSum: sumArray(dogObj.points),
-    ...dogObj,
-  })).sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1))
+  const femaleDogsSorted = Object.values(femaleDogs)
+    .map(dogObj => ({
+      pointsSum: sumArray(dogObj.points),
+      ...dogObj,
+    }))
+    .sort((r1, r2) => (r1.pointsSum > r2.pointsSum ? -1 : 1))
     .slice(0, 20);
 
   return {
