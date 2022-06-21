@@ -40,15 +40,17 @@ export const simpleAwards = [
 
 export function calculateScore(result, placement, ck, numDogs) {
   let score = 0;
-  if (ck) {
-    score += 5;
-  }
-  if (result) {
-    score += pointsByResult[result] || 0;
-  }
+
   if (placement) {
     score += pointsByResult[placement] + getPointsByNumDogs(numDogs);
+  } else {
+    if (ck) {
+      score += 5;
+    } else if (result) {
+      score += pointsByResult[result] || 0;
+    }
   }
+
   return score;
 }
 

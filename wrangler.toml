@@ -1,10 +1,10 @@
 name = "fauna-workers"
 type = "javascript"
 
-account_id = ""
+account_id = "f46a0d1843dccb26e0464a74b8668a9f"
 workers_dev = true
 route = ""
-zone_id = ""
+zone_id = "e89ddb8ad3337d4afd6c448e8cf60ff9"
 compatibility_date = "2022-02-02"
 
 [build]
