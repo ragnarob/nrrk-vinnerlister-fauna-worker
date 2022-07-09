@@ -5,24 +5,34 @@ export default async function addContestCert(req, res, faunaClient) {
   try {
     const contestId = req.params.id;
     const body = await req.body();
-    const { dogGender, isCert, dogId } = body;
+    const { dogGender, isCert, certType, dogId } = body;
 
-    const genderCertKey = dogGender === 'M' ? 'maleCertDogRef' : 'femaleCertDogRef';
+    const certKey = getCertKey(dogGender, certType);
+
     const certValue = isCert ? Ref(Collection('Dogs'), dogId) : null;
     const updateObj = {
-      [genderCertKey]: certValue,
+      [certKey]: certValue,
     };
 
-    await faunaClient.query(
-      Update(
-        Ref(Collection('Contests'), contestId),
-        { data: updateObj },
-      ),
-    );
+    await faunaClient.query(Update(Ref(Collection('Contests'), contestId), { data: updateObj }));
 
     res.send(204);
   } catch (err) {
     const faunaError = getFaunaError(err);
     res.send(faunaError.status, faunaError);
+  }
+}
+
+function getCertKey(dogGender, certType) {
+  if (dogGender === 'M') {
+    if (certType === 'nord') {
+      return 'maleNordCertDogRef';
+    }
+    return 'maleCertDogRef';
+  } else {
+    if (certType === 'nord') {
+      return 'femaleNordCertDogRef';
+    }
+    return 'femaleCertDogRef';
   }
 }
