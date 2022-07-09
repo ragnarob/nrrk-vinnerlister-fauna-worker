@@ -15,6 +15,9 @@ export const pointsByResult = {
   'Very Good': 3,
   Good: 2,
   Sufficient: 1,
+  DQ: 0,
+  IM: 0,
+  0: 0,
 };
 
 export const awardsWithNumDogPoitns = [
@@ -31,12 +34,7 @@ export const awardsWithNumDogPoitns = [
   '10. BHK/BTK',
 ];
 
-export const simpleAwards = [
-  'Excellent',
-  'Very Good',
-  'Good',
-  'Sufficient',
-];
+export const simpleAwards = ['Excellent', 'Very Good', 'Good', 'Sufficient', 'DQ', 'IM', '0'];
 
 export function calculateScore(result, placement, ck, numDogs) {
   let score = 0;
@@ -55,16 +53,36 @@ export function calculateScore(result, placement, ck, numDogs) {
 }
 
 export function getPointsByNumDogs(numDogs) {
-  if (numDogs <= 5) { return 0; }
-  if (numDogs <= 10) { return 2; }
-  if (numDogs <= 15) { return 4; }
-  if (numDogs <= 20) { return 6; }
-  if (numDogs <= 25) { return 8; }
-  if (numDogs <= 30) { return 10; }
-  if (numDogs <= 35) { return 12; }
-  if (numDogs <= 40) { return 14; }
-  if (numDogs <= 45) { return 16; }
-  if (numDogs <= 50) { return 18; }
+  if (numDogs <= 5) {
+    return 0;
+  }
+  if (numDogs <= 10) {
+    return 2;
+  }
+  if (numDogs <= 15) {
+    return 4;
+  }
+  if (numDogs <= 20) {
+    return 6;
+  }
+  if (numDogs <= 25) {
+    return 8;
+  }
+  if (numDogs <= 30) {
+    return 10;
+  }
+  if (numDogs <= 35) {
+    return 12;
+  }
+  if (numDogs <= 40) {
+    return 14;
+  }
+  if (numDogs <= 45) {
+    return 16;
+  }
+  if (numDogs <= 50) {
+    return 18;
+  }
   return 20;
 }
 
