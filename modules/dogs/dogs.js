@@ -56,14 +56,10 @@ export default function setupRoutes(router, faunaClient) {
       for await (const dogRes of dogResults) {
         const refId = dogRes.value.id;
 
-        await faunaClient.query(
-          Delete(Ref(Collection('ContestResults'), refId)),
-        );
+        await faunaClient.query(Delete(Ref(Collection('ContestResults'), refId)));
       }
 
-      await faunaClient.query(
-        Delete(Ref(Collection('Dogs'), dogId)),
-      );
+      await faunaClient.query(Delete(Ref(Collection('Dogs'), dogId)));
 
       res.send(200);
     } catch (err) {
