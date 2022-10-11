@@ -56,7 +56,7 @@ function getTopDogScores(resultList) {
     const { points } = relevantDogObj[dogId];
 
     points.push(score);
-    relevantDogObj[dogId].points = points.sort().slice(0, 6);
+    relevantDogObj[dogId].points = points.sort((p1, p2) => p2-p1).slice(0, 6);
   });
 
   const maleDogsSorted = Object.values(maleDogs)
