@@ -49,6 +49,26 @@ export async function getDogResults(faunaClient, dogId) {
               Var('contestDoc'),
               null
             ),
+            contestMaleJuniorCertDogRef: Select(
+              ['data', 'maleJuniorCertDogRef'],
+              Var('contestDoc'),
+              null
+            ),
+            contestFemaleJuniorCertDogRef: Select(
+              ['data', 'femaleJuniorCertDogRef'],
+              Var('contestDoc'),
+              null
+            ),
+            contestMaleVeteranCertDogRef: Select(
+              ['data', 'maleVeteranCertDogRef'],
+              Var('contestDoc'),
+              null
+            ),
+            contestFemaleVeteranCertDogRef: Select(
+              ['data', 'femaleVeteranCertDogRef'],
+              Var('contestDoc'),
+              null
+            ),
           }
         )
       )

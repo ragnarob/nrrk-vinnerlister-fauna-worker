@@ -28,10 +28,22 @@ function getCertKey(dogGender, certType) {
     if (certType === 'nord') {
       return 'maleNordCertDogRef';
     }
+    if (certType === 'junior') {
+      return 'maleJuniorCertDogRef';
+    }
+    if (certType === 'veteran') {
+      return 'maleVeteranCertDogRef';
+    }
     return 'maleCertDogRef';
   } else {
     if (certType === 'nord') {
       return 'femaleNordCertDogRef';
+    }
+    if (certType === 'junior') {
+      return 'femaleJuniorCertDogRef';
+    }
+    if (certType === 'veteran') {
+      return 'femaleVeteranCertDogRef';
     }
     return 'femaleCertDogRef';
   }
