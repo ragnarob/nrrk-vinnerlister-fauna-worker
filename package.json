@@ -20,6 +20,7 @@
     "worktop.build": "^0.0.5"
   },
   "dependencies": {
+    "@cloudflare/wrangler": "^1.21.0",
     "faunadb": "^4.5.0",
     "worktop": "^0.7.3"
   }
